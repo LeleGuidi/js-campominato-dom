@@ -7,6 +7,12 @@ function randomNumbers(min, max) {
     return randomNumber;
 }
 
+function checkNumbersBeforePush(array, number) {
+    if (!array.includes(number)) {
+        array.push(number)
+    }
+}
+
 
 
 //--------------------
@@ -16,7 +22,7 @@ function randomNumbers(min, max) {
 let cpuNumbers = [];
 while (cpuNumbers.length < 16) {
     let number = randomNumbers(1, 100)
-    if (!cpuNumbers.includes(number)) {
-        cpuNumbers.push(number)
-    }
+    checkNumbersBeforePush(cpuNumbers, number)
 }
+
+//Chiedere all'utente di inserire un numero per 84 volte, se raggiunge la fine allora ha vinto.
