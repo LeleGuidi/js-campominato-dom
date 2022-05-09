@@ -16,10 +16,29 @@ function checkNumbersBeforePush(array, number) {
 //--------------------
 //  MAIN
 //--------------------
+//Chiedere all'utente la difficoltà e controllare che inserisca correttamente i numeri
+let userDifficultyChoice
+while (isNaN(userDifficultyChoice) || userDifficultyChoice < 0 || userDifficultyChoice > 2) {
+    userDifficultyChoice = Number(prompt(`Inserisci la difficoltà desiderata dallo 0 (più facile) al 2(più difficile)`))
+    if (isNaN(userDifficultyChoice) || userDifficultyChoice < 0 || userDifficultyChoice > 2) {
+        alert(`Devi inserire un NUMERO DA 0 A 2!`)
+    }
+}
+let difficulty = 0;
+//Se sceglie 0 allora i numeri casuali saranno 100
+if (userDifficultyChoice == 0) {
+    difficulty = 100;
+//Se sceglie 1 allora i numeri casuali saranno 80
+} else if ((userDifficultyChoice == 1)) {
+    difficulty = 80;
+//Altrimenti avrà scelto 2 e i numeri casuali saranno 50
+} else {
+    difficulty = 50;
+}
 //Il computer deve generare 16 numeri casuali compresi da 1 a 100
 let cpuNumbers = [];
 while (cpuNumbers.length < 16) {
-    let cpuNumber = randomNumbers(1, 100)
+    let cpuNumber = randomNumbers(1, difficulty)
     checkNumbersBeforePush(cpuNumbers, cpuNumber)
 }
 console.log(cpuNumbers)
@@ -32,10 +51,10 @@ let gameOver = false;
 while (gameOver == false) {
     //Finchè l'utente non inserisce esattamente un numero compreso tra 1 e 100 allora gli lo si richiede.
     let userNumber
-    while (isNaN(userNumber) || userNumber < 1 || userNumber > 100) {
-        userNumber = Number(prompt("Inserisci il numero tra 1 a 100!"))
-        if (isNaN(userNumber) || userNumber < 1 || userNumber > 100) {
-            alert(`Devi inserire un NUMERO DA 1 A 100!`)
+    while (isNaN(userNumber) || userNumber < 1 || userNumber > difficulty) {
+        userNumber = Number(prompt(`Inserisci il numero tra 1 a ${difficulty}!`))
+        if (isNaN(userNumber) || userNumber < 1 || userNumber > difficulty) {
+            alert(`Devi inserire un NUMERO DA 1 A ${difficulty}!`)
         }
     }
 
@@ -50,7 +69,7 @@ while (gameOver == false) {
     } else {
         checkNumbersBeforePush(userNumbers, userNumber)
         //Se l'utente inserisce 84 numeri allora ha vinto!
-        if (userNumbers.length == 83) {
+        if (userNumbers.length == (difficulty - 17)) {
             gameOver = true;
             alert(`Wow, hai inserito tutti ${userNumbers.length} numeri consentiti! Hai vinto!!`)
         }
