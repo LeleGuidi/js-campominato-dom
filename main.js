@@ -18,7 +18,7 @@ function checkNumbersBeforePush(array, number) {
 //--------------------
 //Il computer deve generare 16 numeri casuali compresi da 1 a 100
 let cpuNumbers = [];
-while (cpuNumbers.length < 90) {
+while (cpuNumbers.length < 16) {
     let cpuNumber = randomNumbers(1, 100)
     checkNumbersBeforePush(cpuNumbers, cpuNumber)
 }
@@ -50,7 +50,7 @@ while (gameOver == false) {
     } else {
         checkNumbersBeforePush(userNumbers, userNumber)
         //Se l'utente inserisce 84 numeri allora ha vinto!
-        if (userNumbers.length == 2) {
+        if (userNumbers.length == 83) {
             gameOver = true;
             alert(`Wow, hai inserito tutti ${userNumbers.length} numeri consentiti! Hai vinto!!`)
         }
