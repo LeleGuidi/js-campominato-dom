@@ -22,6 +22,7 @@ while (cpuNumbers.length < 90) {
     let cpuNumber = randomNumbers(1, 100)
     checkNumbersBeforePush(cpuNumbers, cpuNumber)
 }
+console.log(cpuNumbers)
 
 
 //Chiedere all'utente di inserire un numero per 84 volte, se raggiunge la fine allora ha vinto, se invece ha scelto un numero non corretto... ha perso.
@@ -32,14 +33,14 @@ while (gameOver == false) {
     //Finchè l'utente non inserisce esattamente un numero compreso tra 1 e 100 allora gli lo si richiede.
     let userNumber
     while (isNaN(userNumber) || userNumber < 1 || userNumber > 100) {
-        userNumber = prompt("Inserisci il numero tra 1 a 100!")
+        userNumber = Number(prompt("Inserisci il numero tra 1 a 100!"))
         if (isNaN(userNumber) || userNumber < 1 || userNumber > 100) {
             alert(`Devi inserire un NUMERO DA 1 A 100!`)
         }
     }
 
     //Se il numero inserito è presente all'interno dei numeri del computer allora l'utente ha perso.
-    if (cpuNumbers.includes(userNumber)) {
+    if (cpuNumbers.includes(userNumber) == true) {
         gameOver = true;
         alert(`Mi dispiace, hai perso! Però hai inserito ${userNumbers.length} numeri correttamente!!`)
     //Se invece il numero inserito è stato precedentemente inserito allora non verrà aggiunto tra i numeri validi.
@@ -55,6 +56,4 @@ while (gameOver == false) {
         }
     }
 }
-
-console.log(cpuNumbers)
 console.log(userNumbers)
