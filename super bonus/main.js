@@ -24,6 +24,13 @@ function boxesCreation(numberOfBoxes) {
     }
 }
 
+//Funzione per attribuire ai box la bomba, a seconda dell'array generato con numeri casuali dal computer
+function redBoxes(array){
+    for (let i = 0; i < 16; i++) {
+        const box = document.getElementsByClassName("box")
+        box[array[i]].classList.add("bomb")
+    }
+}
 //--------------------
 //  MAIN
 //--------------------
@@ -85,19 +92,8 @@ startGame.addEventListener (`click`,
                 let cpuNumber = randomNumbers(1, userDifficultyChoice)
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
-            //Per ogni box si prende il suo valore all'interno e per ogni elemento dell'array contenente i numeri del computer si controlla se sono uguali
-            for (let i = 0; i < userDifficultyChoice; i++) {
-                let box = document.getElementsByClassName("box")
-                let numberBox = Number(box[i].innerHTML)
-                console.log(numberBox)
-                for (let i = 0; i < 16; i++) {
-                    let cpuNumber = cpuNumbers[i].innerHTML
-                    if (cpuNumbers[i] == numberBox) {
-                        box[i].classList.add("red")
-                    }
-                }
-            }
-            console.log(cpuNumbers)
+            redBoxes(cpuNumbers)
+           
         }
         if (userDifficultyChoice == 80) {
             boxesCreation(80)
@@ -107,7 +103,7 @@ startGame.addEventListener (`click`,
                 let cpuNumber = randomNumbers(1, userDifficultyChoice)
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
-            console.log(cpuNumbers)
+            redBoxes(cpuNumbers)
         }
         if (userDifficultyChoice == 50) {
             boxesCreation(50)
@@ -117,8 +113,17 @@ startGame.addEventListener (`click`,
                 let cpuNumber = randomNumbers(1, userDifficultyChoice)
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
-            console.log(cpuNumbers)
+            redBoxes(cpuNumbers)
         }
     }
 )
+// //L'utente clicca le caselle
+// boxElement.addEventListener(`click`,
+//     function() {
+//         if (box.classList.contains("bomb")) {
+//             box.classList.add("red")
+
+//         }
+//      }
+// )
 
