@@ -1,0 +1,13 @@
+.start-game.block {
+    display: block;
+}
+.main-row.none {
+    display: none;
+}
+.row-score.block {
+    display: flex;
+}
+.row-game.block {
+    display: flex;
+}
+
