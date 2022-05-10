@@ -76,20 +76,21 @@ body {
     display: none;
 }
 .box {
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: #f8f7ff;
+    font-size: 0;
 }
 .box.box100 {
     width: calc(100% / 10 - 10px);
-    height: 100px;
+    height: 55px;
 }
 .box.box80 {
-    width: calc(100% / 16 - 10px);
-    height: 100px;
+    width: calc(100% / 10 - 10px);
+    height: 55px;
 }
 .box.box50 {
     width: calc(100% / 10 - 10px);
-    height: 100px;
+    height: 55px;
 }
 /*---------------------
         ROW
@@ -109,7 +110,8 @@ body {
     display: none;
     flex-direction: row;
     justify-content: space-between;
-    align-content: flex-start;
+    align-items: center;
+    align-content: center;
     flex-wrap: wrap;
     padding-bottom: 20px;
 }
@@ -121,4 +123,14 @@ body {
     align-content: flex-start;
     flex-wrap: wrap;
     gap: 10px;
+}
+.row-score h3:nth-child(2) {
+    width: 50%;
+    text-align: center;
+}
+.row-score h3:first-child, .row-score h3:last-child{
+    width: 25%;
+}
+.row-score h3:last-child {
+    text-align: right;
 }
