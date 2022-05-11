@@ -5,4 +5,7 @@
         font-size: 25px;
         line-height: 140px;
     }
+    #final-message h1 {
+        font-size: 30px;
+    }
 }

@@ -24,16 +24,73 @@ function boxesCreation(numberOfBoxes) {
     }
 }
 
-//Funzione per attribuire ai box la bomba, a seconda dell'array generato con numeri casuali dal computer
+//Funzione per attribuire alle caselle la bomba, a seconda dell'array generato con numeri casuali dal computer
 function redBoxes(array){
     for (let i = 0; i < 16; i++) {
         const box = document.getElementsByClassName("box")
         box[array[i]].classList.add("bomb")
     }
 }
+
+//Funzione che si attiva al click delle caselle da parte dell'utente
+function clickUser(boxes){
+    boxes.forEach(function(box) {
+        box.addEventListener(`click`, 
+            function() {
+                score.innerHTML = scorePoint
+                //Se l'utente clicca una casella precedentemente già cliccata allora non succederà nulla
+                if (box.classList.contains("grey")){
+
+                } else {
+                    //Se l'utente preme una casella con la bomba allora il gioco si fermerà
+                    if (box.classList.contains("bomb")) {
+                        //La casella diventerà rossa
+                        box.classList.add("red")
+                        //Verranno visualizzati i messaggi di errore
+                        messageRow.classList.add("d-flex")
+                        finalMessage.innerHTML = "Hai perso, mi dispiace!"
+                        retry.innerHTML = "Ritenta"
+                        //Se l'utente clicca su "ritenta" allora verrà ripristinato il gioco.
+                        retry.addEventListener(`click`,
+                        function() {
+                                for (let i = 0; i < mainRow.length; i++)
+                                {
+                                    mainRow[i].classList.remove("d-none")
+                                    mainRow[i].classList.add("d-flex")
+                                }
+                                //Gli elementi come punteggio e tabella contenente le caselle vengonon resi visibili
+                                rowGame.classList.remove("d-flex")
+                                rowScore.classList.remove("d-flex")
+                                messageRow.classList.remove("d-flex")
+                                
+                                //Le caselle vengono rimosse tutte
+                                boxes.forEach(box => {
+                                    box.remove();
+                                })
+
+                                //Il punteggio viene azzerato
+                                scorePoint = 0
+                                score.innerHTML = scorePoint;
+                            }
+                        )
+                    } else {
+                        box.classList.add("grey")
+                        scorePoint += 1
+                        score.innerHTML = scorePoint
+                        
+                    }
+                }
+                
+            }
+        )
+    })
+}
+
+
 //--------------------
 //  MAIN
 //--------------------
+
 //costanti per elementi del DOM
 const easy = document.getElementById("facile")
 const medium = document.getElementById("media")
@@ -44,15 +101,18 @@ const rowScore = document.getElementsByClassName("row-score") [0]
 const rowGame = document.getElementsByClassName("row-game") [0]
 const messageRow = document.getElementsByClassName("message-row") [0]
 const box = document.createElement("div")
-const score = document.getElementById("score")
 const finalMessage = document.getElementById("final-message")
 const retry = document.getElementById("retry")
 
+
 let scorePoint = 0
 let userDifficultyChoice
+
+
 //Click dei tasti per la difficoltà
 easy.addEventListener (`click`,
     function() {
+        //Effetto ombreggiatura rimosso/aggiunto a seconda del tasto premuto
         easy.classList.add("pressed")
         medium.classList.remove("pressed")
         hard.classList.remove("pressed")
@@ -60,8 +120,10 @@ easy.addEventListener (`click`,
         userDifficultyChoice = 100;
     }
 )
+
 medium.addEventListener (`click`, 
     function() {
+        //Effetto ombreggiatura rimosso/aggiunto a seconda del tasto premuto
         easy.classList.remove("pressed")
         medium.classList.add("pressed")
         hard.classList.remove("pressed")
@@ -69,8 +131,10 @@ medium.addEventListener (`click`,
         userDifficultyChoice = 80;
     }
 )
+
 hard.addEventListener (`click`, 
     function() {
+        //Effetto ombreggiatura rimosso/aggiunto a seconda del tasto premuto
         easy.classList.remove("pressed")
         medium.classList.remove("pressed")
         hard.classList.add("pressed")
@@ -99,6 +163,8 @@ startGame.addEventListener (`click`,
         medium.classList.remove("pressed")
         hard.classList.remove("pressed")
         
+        
+
         if (userDifficultyChoice == 100) {
             boxesCreation(100)
             //Il computer generare 16 numeri casuali compresi da 1 a 100 e a seconda del numero scelto la casella corrispondente sarà la bomba
@@ -108,53 +174,12 @@ startGame.addEventListener (`click`,
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
             redBoxes(cpuNumbers)
-            //L'utente al clic di una casella scoprirà se conterrà una bomba oppure no
-            const boxes = document.querySelectorAll(".box")
-            boxes.forEach(function(box) {
-                box.addEventListener(`click`, 
-                    function() {
-                        score.innerHTML = scorePoint
-                        //Se l'utente preme una casella con la bomba allora il gioco si fermerà
-                        if (box.classList.contains("bomb")) {
-                            //La casella diventerà rossa
-                            box.classList.add("red")
-                            //Verranno visualizzati i messaggi di errore
-                            messageRow.classList.add("d-flex")
-                            finalMessage.innerHTML = "Hai perso, mi dispiace!"
-                            retry.innerHTML = "Ritenta"
-                            //Se l'utente clicca su "ritenta" allora verrà ripristinato il gioco.
-                            retry.addEventListener(`click`,
-                            function() {
-                                    for (let i = 0; i < mainRow.length; i++)
-                                    {
-                                        mainRow[i].classList.remove("d-none")
-                                        mainRow[i].classList.add("d-flex")
-                                    }
-                                    //Gli elementi come punteggio e tabella contenente le caselle vengonon resi visibili
-                                    rowGame.classList.remove("d-flex")
-                                    rowScore.classList.remove("d-flex")
-                                    messageRow.classList.remove("d-flex")
-
-                                    boxes.forEach(box => {
-                                        box.classList.remove(`red`);
-                                        box.classList.remove(`grey`);
-                                    })
-                                    rowGame.removeChild(div)
-                                    scorePoint = 0
-                                    score.innerHTML = scorePoint;
-                                      
-                                }
-                            )
-                        } else {
-                            box.classList.add("grey")
-                            scorePoint += 1
-                            score.innerHTML = scorePoint
-                            
-                        }
-                    }
-                )
-            })
+            score = document.getElementById("score")
+            boxes = document.querySelectorAll(".box")
+            clickUser(boxes)
         }
+
+
         if (userDifficultyChoice == 80) {
             boxesCreation(80)
             //Il computer generare 16 numeri casuali compresi da 1 a 80 e a seconda del numero scelto la casella corrispondente sarà la bomba
@@ -164,7 +189,12 @@ startGame.addEventListener (`click`,
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
             redBoxes(cpuNumbers)
+            score = document.getElementById("score")
+            boxes = document.querySelectorAll(".box")
+            clickUser(boxes)
         }
+
+
         if (userDifficultyChoice == 50) {
             boxesCreation(50)
             //Il computer generare 16 numeri casuali compresi da 1 a 50 e a seconda del numero scelto la casella corrispondente sarà la bomba
@@ -174,6 +204,9 @@ startGame.addEventListener (`click`,
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
             redBoxes(cpuNumbers)
+            score = document.getElementById("score")
+            boxes = document.querySelectorAll(".box")
+            clickUser(boxes)
               
         }
     }
