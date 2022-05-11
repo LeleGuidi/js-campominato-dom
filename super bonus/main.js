@@ -42,16 +42,21 @@ const startGame = document.getElementById("start-game")
 const mainRow = document.getElementsByClassName("main-row")
 const rowScore = document.getElementsByClassName("row-score") [0]
 const rowGame = document.getElementsByClassName("row-game") [0]
+const messageRow = document.getElementsByClassName("message-row") [0]
 const box = document.createElement("div")
-let userDifficultyChoice
+const score = document.getElementById("score")
+const finalMessage = document.getElementById("final-message")
+const retry = document.getElementById("retry")
 
+let scorePoint = 0
+let userDifficultyChoice
 //Click dei tasti per la difficoltà
 easy.addEventListener (`click`,
     function() {
         easy.classList.add("pressed")
         medium.classList.remove("pressed")
         hard.classList.remove("pressed")
-        startGame.classList.add("block")
+        startGame.classList.add("d-block")
         userDifficultyChoice = 100;
     }
 )
@@ -60,7 +65,7 @@ medium.addEventListener (`click`,
         easy.classList.remove("pressed")
         medium.classList.add("pressed")
         hard.classList.remove("pressed")
-        startGame.classList.add("block")
+        startGame.classList.add("d-block")
         userDifficultyChoice = 80;
     }
 )
@@ -69,7 +74,7 @@ hard.addEventListener (`click`,
         easy.classList.remove("pressed")
         medium.classList.remove("pressed")
         hard.classList.add("pressed")
-        startGame.classList.add("block")
+        startGame.classList.add("d-block")
         userDifficultyChoice = 50;
     }
 )
@@ -77,13 +82,23 @@ hard.addEventListener (`click`,
 //Click per startare la partita
 startGame.addEventListener (`click`,
     function() {
+        //Gli elementi dei DOM come titolo, difficoltà e tasti vengono resi invisibili
         for (let i = 0; i < mainRow.length; i++)
         {
-            mainRow[i].classList.add("none")
+            mainRow[i].classList.add("d-none")
+            mainRow[i].classList.remove("d-flex")
         }
-        rowGame.classList.add("block")
-        rowScore.classList.add("block")
-        startGame.classList.remove("block")
+
+        //Gli elementi come punteggio e tabella contenente le caselle vengonon resi visibili
+        rowGame.classList.add("d-flex")
+        rowScore.classList.add("d-flex")
+        startGame.classList.remove("d-block")
+
+        //I tasti delle difficoltà perdono il loro effetto di ombreggiatura
+        easy.classList.remove("pressed")
+        medium.classList.remove("pressed")
+        hard.classList.remove("pressed")
+        
         if (userDifficultyChoice == 100) {
             boxesCreation(100)
             //Il computer generare 16 numeri casuali compresi da 1 a 100 e a seconda del numero scelto la casella corrispondente sarà la bomba
@@ -93,7 +108,52 @@ startGame.addEventListener (`click`,
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
             redBoxes(cpuNumbers)
-           
+            //L'utente al clic di una casella scoprirà se conterrà una bomba oppure no
+            const boxes = document.querySelectorAll(".box")
+            boxes.forEach(function(box) {
+                box.addEventListener(`click`, 
+                    function() {
+                        score.innerHTML = scorePoint
+                        //Se l'utente preme una casella con la bomba allora il gioco si fermerà
+                        if (box.classList.contains("bomb")) {
+                            //La casella diventerà rossa
+                            box.classList.add("red")
+                            //Verranno visualizzati i messaggi di errore
+                            messageRow.classList.add("d-flex")
+                            finalMessage.innerHTML = "Hai perso, mi dispiace!"
+                            retry.innerHTML = "Ritenta"
+                            //Se l'utente clicca su "ritenta" allora verrà ripristinato il gioco.
+                            retry.addEventListener(`click`,
+                            function() {
+                                    for (let i = 0; i < mainRow.length; i++)
+                                    {
+                                        mainRow[i].classList.remove("d-none")
+                                        mainRow[i].classList.add("d-flex")
+                                    }
+                                    //Gli elementi come punteggio e tabella contenente le caselle vengonon resi visibili
+                                    rowGame.classList.remove("d-flex")
+                                    rowScore.classList.remove("d-flex")
+                                    messageRow.classList.remove("d-flex")
+
+                                    boxes.forEach(box => {
+                                        box.classList.remove(`red`);
+                                        box.classList.remove(`grey`);
+                                    })
+                                    rowGame.removeChild(div)
+                                    scorePoint = 0
+                                    score.innerHTML = scorePoint;
+                                      
+                                }
+                            )
+                        } else {
+                            box.classList.add("grey")
+                            scorePoint += 1
+                            score.innerHTML = scorePoint
+                            
+                        }
+                    }
+                )
+            })
         }
         if (userDifficultyChoice == 80) {
             boxesCreation(80)
@@ -114,16 +174,11 @@ startGame.addEventListener (`click`,
                 checkNumbersBeforePush(cpuNumbers, cpuNumber)
             }
             redBoxes(cpuNumbers)
+              
         }
     }
 )
-// //L'utente clicca le caselle
-// boxElement.addEventListener(`click`,
-//     function() {
-//         if (box.classList.contains("bomb")) {
-//             box.classList.add("red")
 
-//         }
-//      }
-// )
+
+ 
 

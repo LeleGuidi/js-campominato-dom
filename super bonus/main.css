@@ -11,23 +11,36 @@
 ---------------------*/
 h1 {
     text-transform: uppercase;
-    font-size: 80px;
+    font-size: 60px;
     color: #9381ff;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
+    text-align: center;
 }
 h3 {
     text-transform: uppercase;
-    font-size: 35px;
+    font-size: 30px;
     color: #b8b8ff;
+    padding-bottom: 50px;
 }
 .row-score h3 {
     font-size: 20px;
     text-transform: uppercase;
+    padding-bottom: 0;
 }
 .row-score h3 span {
     font-size: 40px;
     font-weight: bold;
     vertical-align: middle;
+}
+#final-message{
+    text-transform: uppercase;
+    font-size: 45px;
+    color: #9381ff;
+}
+#retry {
+    text-transform: uppercase;
+    color:rgb(33, 248, 176);
+    font-size: 40px;
 }
 /*---------------------
         COMMON
@@ -35,45 +48,59 @@ h3 {
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #b8b8ff;
-    padding: 30px;
+    padding: 0 30px;
+}
+.box:after{
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+.d-none {
+    display: none;
+}
+.d-flex {
+    display: flex;
+}
+.d-block {
+    display: block;
 }
 /*---------------------
         CONTAINER
 ---------------------*/
 .container {
     /* width  */
-    max-width: 1100px;
+    max-width: 600px;
     /* style/background/color  */
     background-color: #FFEEDD;
     border-radius: 20px;
     box-shadow: 0px 0px 19px 13px rgba(0,0,0,0.1);
-    margin: auto;
+    margin: 40px auto;
     padding: 20px;
+    position: relative;
 }
 .difficulty {
-    width: calc(100% / 3 - 40px);
-    height: 200px;
+    width: 170px;
+    height: 170px;
     background-color: #f8f7ff;
     border-radius: 20px;
     box-shadow: 0px 0px 19px 13px rgba(0,0,0,0.1);
     color: #FFd8be;
-    font-size: 45px;
+    font-size: 30px;
     text-transform: uppercase;
     text-align: center;
-    line-height: 200px;
     font-weight: bold;
+    line-height: 170px;
 }
 #start-game {
     border-radius: 20px;
     color: white;
     background-color: #9381ff;
     font-size: 30px;
+    margin-top: 50px;
     padding: 10px 20px;
     text-transform: uppercase;
     font-weight: bold;
     box-shadow: 0px 0px 19px 13px rgba(0,0,0,0.1);
-    /* display  */
-    display: none;
 }
 .box {
     border-radius: 10px;
@@ -81,33 +108,42 @@ body {
     font-size: 0;
 }
 .box.box100 {
-    width: calc(100% / 10 - 10px);
-    height: 55px;
+    width: calc(100% / 10 - 5px);
 }
 .box.box80 {
-    width: calc(100% / 10 - 10px);
-    height: 55px;
+    width: calc(100% / 10 - 5px);
 }
 .box.box50 {
-    width: calc(100% / 10 - 10px);
-    height: 55px;
+    width: calc(100% / 10 - 5px);
+}
+#final-message {
+    border-radius: 10px;
+    border: 5px solid #9381ff;
+    box-shadow: 0px 0px 19px 13px rgba(0,0,0,0.1);
+    padding: 20px 20px;
+    background-color: rgba(184, 184, 255, 0.537);
+}
+#retry {
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 5px solid rgb(33, 248, 176);
+    box-shadow: 0px 0px 19px 13px rgba(0,0,0,0.1);
+    padding: 20px 20px;
+    background-color: rgba(184, 184, 255, 0.496);
 }
 /*---------------------
         ROW
 ---------------------*/
 .main-row {
     width: 100%;
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
-    gap: 40px; 
-    padding: 30px 0;
+    gap: 25px; 
 }
 .row-score {
     width: 100%;
-    display: none;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -117,20 +153,21 @@ body {
 }
 .row-game {
     width: 100%;
-    display: none;
     flex-direction: row;
     justify-content: space-between;
     align-content: flex-start;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 5px;
 }
-.row-score h3:nth-child(2) {
-    width: 50%;
+.message-row {
+    position: absolute;
+    top: 87px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
     text-align: center;
-}
-.row-score h3:first-child, .row-score h3:last-child{
-    width: 25%;
-}
-.row-score h3:last-child {
-    text-align: right;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }

@@ -19,28 +19,33 @@
 <body>
     <div class="container">
         <!-- settings part  -->
-        <div class="main-row">
+        <div class="main-row d-flex">
             <h1>campo minato</h1>
         </div>
-        <div class="main-row">
+        <div class="main-row d-flex">
             <h3>scegli la difficoltà</h3>
         </div>
-        <div class="main-row">
+        <div class="main-row d-flex">
             <div id="facile" class="difficulty">facile</div>
             <div id="media" class="difficulty">media</div>
             <div id="difficile" class="difficulty">difficile</div>
         </div>
-        <div class="main-row">
-            <div id="start-game">gioca</div>
+        <div class="main-row d-flex">
+            <div id="start-game" class="d-none">gioca</div>
         </div>
         <!-- /settings part  -->
         <!-- game part  -->
-        <div class="row-score">
-            <h3>punteggio:  <span class="score">0</span></h3> 
+        <div class="row-score d-none">
+            <h3>punteggio:  <span id="score"></span></h3> 
             <h3>seleziona una casella</h3>
         </div>
-        <div class="row-game"></div>
+        <div class="row-game d-none"></div>
         <!-- /game part  -->
+        <!-- Messaggio finale  -->
+        <div class="message-row d-none">
+            <div id="final-message"></div>
+            <div id="retry"></div>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>

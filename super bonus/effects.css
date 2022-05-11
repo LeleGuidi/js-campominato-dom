@@ -1,23 +1,13 @@
-#start-game.block {
-    display: block;
-}
-.main-row.none {
-    display: none;
-    transition: display 2s;
-}
-.row-score.block {
-    display: flex;
-}
-.row-game.block {
-    display: flex;
-}
 .difficulty.pressed {
     box-shadow: inset 0px 0px 19px 13px rgba(0,0,0,0.1);
 }
 .box.red {
     background-color: #dd1c1a;
 }
-.box.green {
-    background-color: #2b9720;
+.box.grey {
+    background-color: rgb(178, 178, 178);
+}
+.box.light_grey {
+    background-color: rgb(230, 230, 230);
 }
 
